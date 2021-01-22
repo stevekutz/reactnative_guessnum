@@ -77,6 +77,8 @@
     });
     ~~~
 
+2) Create custom Header component
+
     ~~~ js
     // components/Header.js
     import React from 'react';
@@ -109,4 +111,80 @@
         }
 
     })
+    ~~~
+
+3) Create StartGameScreen component
+
+    - style attributes that are prefixed with `shadow` only work with `iOS`
+    - the `elevation` style only works with `Android`
+
+    ~~~ js
+    import React from 'react';
+    import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
+
+    const StartGameScreen = props => {
+        return (
+            <View style = {styles.screen}>
+                <Text style = {styles.title} > Start a New Game </Text>
+                <View style = {styles.inputContainer}>
+                    <Text> Select a Number </Text> 
+                    <TextInput />
+                    <View style = {styles.buttonContainer}>
+                        <Button title = 'Reset' onPress = {() => {}} />
+                        <Button title = 'Confirm' onPress = {() => {}} />
+                    </View>
+                
+                </View>
+            </View>
+        
+        )
+
+
+
+    };
+
+    const styles = StyleSheet.create({
+        screen: {
+            flex: 1,
+            padding: 10,
+            alignItems: 'center',
+
+        },
+        inputContainer: {
+            backgroundColor: 'white',
+            padding: 22,
+            borderRadius: 10,   
+            width: 300,
+            maxWidth: '80%',
+            alignItems: 'center',
+            // shadow____   only works on iOS
+            shadowColor: 'black',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowRadius: 6,
+            shadowOpacity: 0.26,
+            // these only work on Android
+            elevation: 5,
+
+        },
+        title: {
+            fontSize: 22,
+            marginVertical: 10,
+
+        
+        },
+        buttonContainer: {
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'space-between',
+            paddingHorizontal: 15,
+
+        
+        }
+
+    })
+
+    export default StartGameScreen;
     ~~~
