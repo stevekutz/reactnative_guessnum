@@ -132,15 +132,10 @@
                     <View style = {styles.buttonContainer}>
                         <Button title = 'Reset' onPress = {() => {}} />
                         <Button title = 'Confirm' onPress = {() => {}} />
-                    </View>
-                
+                    </View>                
                 </View>
-            </View>
-        
+            </View>       
         )
-
-
-
     };
 
     const styles = StyleSheet.create({
@@ -149,7 +144,7 @@
             padding: 10,
             alignItems: 'center',
 
-        },
+            },
         inputContainer: {
             backgroundColor: 'white',
             padding: 22,
@@ -168,13 +163,13 @@
             // these only work on Android
             elevation: 5,
 
-        },
+            },
         title: {
             fontSize: 22,
             marginVertical: 10,
 
         
-        },
+            },
         buttonContainer: {
             flexDirection: 'row',
             width: '100%',
@@ -182,9 +177,93 @@
             paddingHorizontal: 15,
 
         
-        }
+            },
 
     })
 
     export default StartGameScreen;
     ~~~
+
+4) Create `Card` component
+
+    - overriding styles defined in `Card` with props is done using the `spread` operator 
+
+        ~~~ js
+        style = {{...styles.card, ...props.style}}
+        ~~~
+
+    - IMPORTANT !! putting spaces around `{props.children}` results in a `Component Exception Error`
+    <img src = 'reactnative_guess_num/screenshots/Spacing_error_Text_Component.png' width = '40%'/>
+
+    ~~~ js
+    <View style = {{...styles.card, ...props.style}}> {props.children} </View>
+    ~~~
+
+    - add import and replace `View` with `Card` component in `StartGameScreen.js`
+    - add the  `style` prop to the imported `Card` component
+
+        ~~~ js
+        // StartGameScreen.js
+        ...
+        import Card from '../components/Card';
+
+        const StartGameScreen = props => {
+            return (
+                <View style = {styles.screen}>
+                    <Text style = {styles.title} > Start a New Game </Text>
+                    <Card style = {styles.inputContainer}>
+
+                            <Text> Select a Number </Text> 
+                            <TextInput />
+                            <View style = {styles.buttonContainer}>
+                                <Button title = 'Reset' onPress = {() => {}} />
+                                <Button title = 'Confirm' onPress = {() => {}} />
+                            </View>
+
+                    </Card>
+                </View>
+            );
+        };
+        ...
+        ~~~
+  
+    - the completed `Card` component
+
+        ~~~ js
+        // Card.js
+        import React from 'react';
+        import {View, StyleSheet} from 'react-native';
+
+
+        const Card = props => {
+
+            return (
+                <View style = {{...styles.card, ...props.style}}> {props.children} </View>
+            );
+
+        };
+
+
+        const styles = StyleSheet.create({
+            card: {
+                backgroundColor: 'white',
+                padding: 22,
+                borderRadius: 10,   
+                // shadow____   only works on iOS
+                shadowColor: 'black',
+                shadowOffset: {
+                    width: 0,
+                    height: 2,
+                },
+                shadowRadius: 6,
+                shadowOpacity: 0.26,
+                // these only work on Android
+                elevation: 5,
+
+            },
+
+        });
+
+
+        export default Card;
+        ~~~
