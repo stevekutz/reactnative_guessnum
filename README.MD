@@ -268,7 +268,4 @@
         export default Card;
         ~~~
 
-
-
-        TEST COMMIT 2
-        AGAIN 2
+        Access
