@@ -300,3 +300,46 @@
     
     }
 ~~~ 
+
+6) Use constants for colors
+
+    - define colors.js
+
+    ~~~ js
+    export default {
+        primary: '#B717FC',
+        accent: '#97287c',
+        
+    }
+    ~~~
+
+    - import into `StartGameScreen` and assign dynamic values to `colors`
+
+    ~~~ js
+    import Colors from '../constants/colors';
+
+
+    const StartGameScreen = props => {
+        return (
+            <View style = {styles.screen}>
+                <Text style = {styles.title} > Start a New Game </Text>
+                <Card style = {styles.inputContainer}>
+
+                        <Text> Select a Number </Text> 
+                        <TextInput />
+                        <View style = {styles.buttonContainer}>
+                            <View style = {styles.buttonStyle}>
+                                <Button title = 'Reset' color = {Colors.primary} onPress = {() => {}} />                        
+                            </View>
+                            <View style = {styles.buttonStyle}>
+                                <Button title = 'Confirm' color = {Colors.accent} onPress = {() => {}} />
+                            </View>                        
+                        </View>
+
+                </Card>
+            </View>
+        );
+    };
+    ~~~
+
+
