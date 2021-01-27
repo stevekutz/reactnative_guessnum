@@ -268,6 +268,35 @@
         export default Card;
         ~~~
 
-        JUST a TEST
-        JUST A TEST
-        VERIFY
+5) Add styling to buttons
+
+    - wrap each button in a `View` component to make each the same width
+    - NOTE !! TO verify width using a colored border, `borderWidth` must be used with `borderColor`
+
+~~~ js
+// StartGameScreen.js
+    ...
+    <Card style = {styles.inputContainer}>
+
+        <Text> Select a Number </Text> 
+        <TextInput />
+            <View style = {styles.buttonContainer}>
+                <View style = {styles.buttonStyle}>
+                    <Button title = 'Reset' color = '#B717FC' onPress = {() => {}} />                        
+                </View>
+                <View style = {styles.buttonStyle}>
+                    <Button title = 'Confirm' color = '#97287c' onPress = {() => {}} />
+                </View>                        
+            </View>
+
+    </Card>
+    ...
+
+    ...
+    buttonStyle: {
+    borderWidth: 4,
+    borderColor: 'pink',
+    width: '50%',
+    
+    }
+~~~ 
