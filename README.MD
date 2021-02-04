@@ -344,57 +344,93 @@
 
 7) Add TextInput component
 
-props are spread in from where `Input` is used within `StartGameScreen` instead of within `Input` itself
-style
-`styles.input` uses styles defined within the `Input` component
-`props.style` uses styles defined from where `Input` is used within `StartGameScreen`
+    - props are spread in from where `Input` is used within `StartGameScreen` instead of within `Input` itself
+    - `styles.input` uses styles defined within the `Input` component
+    - `props.style` uses styles defined from where `Input` is used within `StartGameScreen`
 
 
-    ~~~ js
-    import React from 'react';
-    import {TextInput, StyleSheet} from 'react-native';
+        ~~~ js
+        import React from 'react';
+        import {TextInput, StyleSheet} from 'react-native';
 
-    const Input = props => {
-        return (
-            <TextInput  {...props} style = {{ ...styles.input, ...props.style }} />
-        
-        )
-    };
-
-    const styles = StyleSheet.create({
-        input : {
-            // borderWidth: 1,
-            // borderColor: 'seagreen',
+        const Input = props => {
+            return (
+                <TextInput  {...props} style = {{ ...styles.input, ...props.style }} />
             
-            height: 30,
-            borderBottomColor: 'grey',
-            borderBottomWidth: 1, 
-            marginVertical: 10,
-        
-        }
+            )
+        };
+
+        const styles = StyleSheet.create({
+            input : {
+                // borderWidth: 1,
+                // borderColor: 'seagreen',
+                
+                height: 30,
+                borderBottomColor: 'grey',
+                borderBottomWidth: 1, 
+                marginVertical: 10,
+            
+            }
 
 
 
-    });
+        });
 
-    export default Input;
-    ~~~
+        export default Input;
+        ~~~
 
-replace the `TextInput` component within `StartGameScreen` with the imported `Input` component
+    - replace the `TextInput` component within `StartGameScreen` with the imported `Input` component
 
-~~~ js
-...
-    <Text> Select a Number </Text> 
-    {/* <TextInput />  */}
-    <Input 
-    style = {styles.input} 
-    blurOnSubmit 
-    autoCapitalize = 'none'
-    autoCorrect = {false}  
-    keyboardType = "number-pad"  
-    maxLength = {2}
-    />
-    <View style = {styles.buttonContainer}>
+        ~~~ js
+        ...
+            <Text> Select a Number </Text> 
+            {/* <TextInput />  */}
+            <Input 
+            style = {styles.input} 
+            blurOnSubmit 
+            autoCapitalize = 'none'
+            autoCorrect = {false}  
+            keyboardType = "number-pad"  
+            maxLength = {2}
+            />
+            <View style = {styles.buttonContainer}>
 
-...
-~~~
+        ...
+        ~~~
+
+8) Add handler for numeric input from user
+
+    - `hooks` are used to manage state
+    - a `regular expression` is used to allow only numeric input
+    - `TouchableWithoutFeedback` wraps everything rendered from `StartGameScreen` 
+    - `onPress  = {() => {Keyboard.dismiss()}` closes the numeric pad on iOS when the user clicks outside the `StartGameScreen` component
+    - the `handleNumericInput` handler is called with `onChangeText`
+    - the `Input` component is provided the  updated value prop
+
+        ~~~ js
+        ...
+        const StartGameScreen = props => {
+
+            const [numVal, setNumVal ] = useState('')
+
+            const handleNumberInput = inputTextVal => {
+
+
+                setNumVal(inputTextVal.replace(/[^0-9]/g, ''))        
+            }
+        ...
+        ...
+        <Input 
+                style = {styles.input} 
+                blurOnSubmit 
+                autoCapitalize = 'none'
+                autoCorrect = {false}  
+                keyboardType = "number-pad"  
+                maxLength = {2}
+                onChangeText = {handleNumberInput}
+                value = {numVal}
+            />
+        ...
+        ~~~
+
+
