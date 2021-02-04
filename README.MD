@@ -342,4 +342,59 @@
     };
     ~~~
 
+7) Add TextInput component
 
+props are spread in from where `Input` is used within `StartGameScreen` instead of within `Input` itself
+style
+`styles.input` uses styles defined within the `Input` component
+`props.style` uses styles defined from where `Input` is used within `StartGameScreen`
+
+
+    ~~~ js
+    import React from 'react';
+    import {TextInput, StyleSheet} from 'react-native';
+
+    const Input = props => {
+        return (
+            <TextInput  {...props} style = {{ ...styles.input, ...props.style }} />
+        
+        )
+    };
+
+    const styles = StyleSheet.create({
+        input : {
+            // borderWidth: 1,
+            // borderColor: 'seagreen',
+            
+            height: 30,
+            borderBottomColor: 'grey',
+            borderBottomWidth: 1, 
+            marginVertical: 10,
+        
+        }
+
+
+
+    });
+
+    export default Input;
+    ~~~
+
+replace the `TextInput` component within `StartGameScreen` with the imported `Input` component
+
+~~~ js
+...
+    <Text> Select a Number </Text> 
+    {/* <TextInput />  */}
+    <Input 
+    style = {styles.input} 
+    blurOnSubmit 
+    autoCapitalize = 'none'
+    autoCorrect = {false}  
+    keyboardType = "number-pad"  
+    maxLength = {2}
+    />
+    <View style = {styles.buttonContainer}>
+
+...
+~~~
