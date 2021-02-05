@@ -433,4 +433,69 @@
         ...
         ~~~
 
+9) Add handlers for Reset and Confirm
 
+    ~~~ js
+    const [confirmed, setConfirmed] = useState(false)
+    const [confirmedVal, setConfirmedVal] = useState('')
+    const [numberMessage, setNumberMessage] = useState('Select a Number');
+    ~~~
+
+    ~~~ js
+    const resetHandler = () => {
+        setNumVal('');
+        setConfirmed(false);
+    
+    }
+
+    const confirmHandler = () => {
+
+        const chosenVal = parseInt(numVal);
+
+        // verify value is valid number 0
+        if (chosenVal <= 0 || chosenVal === NaN || chosenVal > 99) {
+            return;
+        }
+
+        setNumberMessage(chosenVal.toString());
+        setConfirmed(true);
+        setConfirmedVal(chosenVal);
+        setNumVal('');
+    
+    }
+    ~~~
+
+    ~~~ js
+    ...
+    <Text> Enter a number </Text> 
+    {/* <TextInput />  */}
+    <Input 
+        style = {styles.input} 
+        blurOnSubmit 
+        autoCapitalize = 'none'
+        autoCorrect = {false}  
+        keyboardType = "number-pad"  
+        maxLength = {2}
+        onChangeText = {handleNumberInput}
+        value = {numVal}
+    />
+    <View style = {styles.buttonContainer}>
+        <View style = {styles.buttonStyle}>
+            <Button 
+                title = 'Reset' 
+                color = {Colors.primary} 
+                onPress = {resetHandler} />                        
+        </View>
+        <View style = {styles.buttonStyle}>
+            <Button 
+                title = 'Confirm' 
+                color = {Colors.accent} 
+                onPress = {confirmHandler} 
+            />
+        </View> 
+    </View>
+    <View>
+        <Text> {numberMessage} confirmed </Text>
+    </View> 
+    ...
+    ~~~
