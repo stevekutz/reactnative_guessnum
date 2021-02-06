@@ -520,4 +520,28 @@
         ...
         ~~~
 
+10) Add Alert for invalid inputs
 
+    - import `Alert` from `react-native`
+
+    - update logic that checks input
+
+        ~~~ js
+            if ( Number.isNaN(chosenVal) || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
+            //   the following does not detect NaN
+            // if ( chosenVal === NaN || chosenVal <= 0 || chosenVal > 99 || chosenVal === '') {
+                // setNumVal('');
+                // console.log("numVal is ", numVal)
+                setConfirmed(false);
+                Alert.alert(
+                    'Invalid input',  // title
+                    'Enter a number from 1-99', // message 
+                    [{
+                        text: 'OK', // button text
+                        style: 'destructive', // choices are: default, cancel, & destructive
+                        onPress: resetHandler // callback 
+                    }]
+                )
+                return;
+            }
+        ~~~
