@@ -587,4 +587,55 @@
     })
 
     export default NumberContainer
+    ~~
+
+
+12) Setup GameScreen component
+
+    ~~~ js
+    import React from 'react';
+    import {Text, View, StyleSheet} from 'react-native';
+
+    // use function outside to not require re-render and improve performance
+    // uses recursion to call itself from within
+
+    const generateRandomBetween = (min, max, excludeVal) => {
+
+        min = Math.ceil(min)    
+        max = Math.ceil(max)
+
+        const randomNum = Math.floor(Math.random() * (max-min) + min);
+
+        // verify
+        // do not allow first choice to given
+        if (randomNum === excludeVal) {
+            return generateRandomBetween(min, max, excludeVal);
+        } else {
+            return randomNum;
+        }
+
+    }
+
+
+
+    const GameScreen = props => {
+
+        const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, props.userChoice));
+
+        return (
+            <View>
+            
+            </View>    
+        )
+    }
+
+    const style = StyleSheet.create({
+
+
+
+
+    })
+
+
+    export default GameScreen;
     ~~~
