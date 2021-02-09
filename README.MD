@@ -639,3 +639,8 @@
 
     export default GameScreen;
     ~~~
+
+14) Update App component
+
+state of game screens is managed here
+`startGameHandler` must be triggered from within `GameScreen` so is passed down as a prop
